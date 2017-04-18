@@ -15,6 +15,17 @@
 #     i.e INTERSECTION == True if ALL parameters intersect
 #--------------------------------------------------------------------------------------
 
+#sameClass
+# Given two rules returns False if they DO NOT have the same
+# class and True otherwise
+def sameClass(rule1, rule2):
+    class1 = rule1[-1]
+    class2 = rule2[-1]
+    if class1 != class2:
+        return False
+    else:
+        return True
+
 #Given a tuple, integer or float returns the maximum and minimum values
 def interval(element):
     if type(element)==int:
@@ -95,7 +106,7 @@ def intersection_or_possible_rule_formation( new_pattern, rule, risk ):
     if new_pattern[-1] == rule[-1]:
         different_parameters = 0
         for i in range( len(rule) -1 ):
-            if new_pattern[i] != rule[i]:
+            if new_pattern[i] != rule[i] and is_contained(new_pattern[i],rule[i]) == False: #And it is NOT contained
                 different_parameters += 1
         if different_parameters <= risk:
             possible_rule_formation = True
@@ -110,3 +121,22 @@ def intersection_or_possible_rule_formation( new_pattern, rule, risk ):
 #res = intersection_or_possible_rule_formation([1, 2, 'A'], [2,2,'A'], 1)
 #res = intersection_or_possible_rule_formation( [ 1, 2, 'A'], [2, 2, 'B'], 1)
 #print(res)
+
+#    See if every element of pattern[i] is in rule[i]
+#
+def is_contained(new_pattern_i, rule_i):
+    iscontained = False
+    if type(new_pattern_i) == tuple or type(new_pattern_i) == list:
+        set1 = set(new_pattern_i)
+    else:
+        set1 = set([new_pattern_i])
+    if type(rule_i) == tuple or type(rule_i) == list:
+        set2 = set(rule_i)
+    else:
+        set2 = set([rule_i])
+    if set1 & set2 != set():
+        return True
+    else:
+        return False
+
+#print( is_contained( (1,3), (1, 2,3,4)  ) )

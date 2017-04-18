@@ -8,8 +8,10 @@
 #---------------------------------------------------------------
 import json
 from intersection_functions import intersection_or_possible_rule_formation
-#from optimum_partition_for_Q import *
+from intersection_functions import is_contained
+from expand_rule import expand_rule
 from rulex_2 import *
+from optimum_partition_for_Q import optimum_partition
 #---------------------------------------------------
 #     Read json 
 def read(file_name):
@@ -50,13 +52,36 @@ def intersected_connected_sets( new_pattern, all_connected_sets ):
 
 #pattern = ( 2, 5, 'A')
 #pattern = ( 5, 5, 'A')
-#pattern = ( 5, 5, 'B' )
-#pattern = (5, 5, 'D')
-pattern = (5, 11, 'A') # Pattern for test1
-#pattern = (1, 1, 'D') #Pattern with no intersections
+pattern = ( 5, 5, 'B' ) # Pattern test2 
+#pattern = (5, 5, 'D')   # Pattern for Test3
+#pattern = (5, 11, 'A')  # Pattern for test1
+#pattern = (1, 1, 'D')   # Pattern with no intersections
 #pattern = (4,7,'D')
 [ intersected_sets,  indexes_of_intersected_sets ] = intersected_connected_sets( pattern, all_connected_sets)
 print('Intersected sets', intersected_sets, 'indexes', indexes_of_intersected_sets)
+
+
+# Check intersected sets, if the pattern is coniained into a rule
+# expand that rule
+for intersected_set in intersected_sets:
+    expansion = []
+    for rule in intersected_set:
+        contained = False
+        if rule[-1] == pattern[-1]:
+            for i in range(len(pattern) - 1):
+                if is_contained(pattern[i],rule[i]) == True:
+                    contained = True
+                    print('is contained', rule)
+        if contained == True:
+            expanded_rule = expand_rule(rule)
+            #remove and change for its expansion
+            intersected_set.remove(rule)
+            for ele in expanded_rule:
+                    expansion.append(ele)
+    for element in expansion:
+        intersected_set.append(element)
+
+#print('intersected_set', intersected_set, 'pattern', pattern)
 
 #Create new set with the new pattern + intersections
 def pattern_plus_intersections(pattern, intersected_sets):
@@ -89,8 +114,22 @@ def rulex_format(new_set,risk):
         formatted.append(the_tuple)
     return formatted
 rulex_format =  rulex_format(new_set,1)
-print('Rulex of new set:', rulex(rulex_format))
-
+new_set = rulex(rulex_format)
+print('Rulex of new set:', new_set )
+#---------------------------------
+# Eliminate RISK to calculate the
+# optimum partition for new_set
+#---------------------------------
+def eliminateRisk(new_set):
+    set_without_risk_parameter = []
+    for rule in new_set:
+        rule = list(rule)
+        del rule[-1]
+        set_without_risk_parameter.append(rule)
+    return set_without_risk_parameter
+new_set = eliminateRisk(new_set)
+print('new_set', new_set )
+print('Optimum partition for the new set: ', optimum_partition(new_set))
 #------------------------------------------------------------------------------
 #           Exclude from optimim_partitions or lonly rules                   --
 #           the indexes_of_intersected_sets, keep the rest of the partitions --
@@ -130,6 +169,8 @@ def remaining_partitions(optimum_partitions, optimum_partitions_indexes, lonly_r
 print( 'Optimum partitions of the not_intersected sets : ')
 not_intersected = remaining_partitions(optimum_partitions, optimum_partitions_indexes, lonly_rules, lonly_rules_indexes, indexes_of_intersected_sets)
 print(not_intersected)
+
+
 
 
 """
