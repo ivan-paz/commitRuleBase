@@ -52,9 +52,9 @@ def intersected_connected_sets( new_pattern, all_connected_sets ):
 
 #pattern = ( 2, 5, 'A')
 #pattern = ( 5, 5, 'A')
-pattern = ( 5, 5, 'B' ) # Pattern test2 
-#pattern = (5, 5, 'D')   # Pattern for Test3
-#pattern = (5, 11, 'A')  # Pattern for test1
+#pattern = ( 5, 5, 'B' ) # Pattern Test 1 
+pattern = (5, 5, 'D')   # Pattern for Test 3
+#pattern = (5, 11, 'A')  # Pattern for Test 2
 #pattern = (1, 1, 'D')   # Pattern with no intersections
 #pattern = (4,7,'D')
 [ intersected_sets,  indexes_of_intersected_sets ] = intersected_connected_sets( pattern, all_connected_sets)
