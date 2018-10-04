@@ -10,6 +10,10 @@ import json
 from intersection_functions import intersection_or_possible_rule_formation
 from intersection_functions import is_contained
 from expand_rule import expand_rule
+
+from convert_to_setRulex_format import convert_to_setRulex_format_func
+from setRulex_algorithm import ruleExtraction
+
 from rulex_2 import *
 from optimum_partition_for_Q import optimum_partition
 #---------------------------------------------------
@@ -25,8 +29,10 @@ all_connected_sets = read('all_connected_sets.json')
 #for i in all_connected_sets: print(i)
 
 #     working again on this repo on Oct 2nd 2018
-all_connected_sets = [ [[3,2,'D']] ]
-[print('this is a connected set: ',connected_set) for connected_set in all_connected_sets]
+#all_connected_sets = [ [[[2,4],2,'A']] ]
+all_connected_sets = [  [ [[1,3] ,[1,2], 'A'] ]  ]
+
+[print('connected set present in ALL_CONNECTED_SETS: ',connected_set) for connected_set in all_connected_sets]
 #--------------------------------------------------------
 #  When a new pattern comes, as we already have    ------
 #  the optimum partition for each connected set    ------
@@ -54,10 +60,13 @@ def intersected_connected_sets( new_pattern, all_connected_sets, d ):
 #pattern = ( 2, 5, 'A')
 #pattern = ( 5, 5, 'A')
 #pattern = ( 5, 5, 'B' ) # Pattern Test 1 
-pattern = (5, 5, 'D')   # Pattern for Test 3
+#pattern = (5, 5, 'D')   # Pattern for Test 3
 #pattern = (5, 11, 'A')  # Pattern for Test 2
 #pattern = (1, 1, 'D')   # Pattern with no intersections
 #pattern = (4,7,'D')
+
+#pattern = (2, 3, 'A')
+pattern = (1,4,'A')
 
 [ intersected_sets,  indexes_of_intersected_sets ] = intersected_connected_sets( pattern, all_connected_sets, d = 2)
 print('Intersected sets', intersected_sets, 'indexes', indexes_of_intersected_sets)
@@ -65,7 +74,7 @@ print('Intersected sets', intersected_sets, 'indexes', indexes_of_intersected_se
 
 
 
-
+#      2nd - FIND THE AFFECTED RULES#      2nd - FIND THE AFFECTED RULES
 
 
 
@@ -79,7 +88,7 @@ for intersected_set in intersected_sets:
             for i in range(len(pattern) - 1):
                 if is_contained(pattern[i],rule[i]) == True:
                     contained = True
-                    print('is contained', rule)
+                    print('pattern',pattern,'is contained in rule ', rule)
         if contained == True:
             expanded_rule = expand_rule(rule)
             #remove and change for its expansion
@@ -100,9 +109,25 @@ def pattern_plus_intersections(pattern, intersected_sets):
         new_set.append(pattern)
         return new_set
 
-print('This is the set for Rulex : ' )
+print(' THIS IS THE NEW_SET FOR SENDING TO setRULEX : ' )
 new_set = pattern_plus_intersections(pattern, intersected_sets)
-print(new_set)
+print( 'TA TAAAN ::::   ', new_set)
+
+
+#     T  R  A  N  S  F  O  R  M    T  H  E    D  A  T  A  S  E  T 
+setRulex_format = convert_to_setRulex_format_func(new_set)
+[print(i) for i in setRulex_format]
+#     A  P  P  L  Y     setRulex
+d = 1; ratio = 0; print('d',d, '---', 'ratio',ratio)
+rules = ruleExtraction(setRulex_format,d,ratio)
+print('rules : : :', rules)
+
+
+
+
+
+
+
 
 #---------------------------------
 #  Give new_set format for Rulex()
