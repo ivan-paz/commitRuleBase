@@ -14,6 +14,8 @@ from expand_rule import expand_rule
 from convert_to_setRulex_format import convert_to_setRulex_format_func
 from setRulex_algorithm import ruleExtraction
 
+
+
 from rulex_2 import *
 from optimum_partition_for_Q import optimum_partition
 #---------------------------------------------------
@@ -120,7 +122,7 @@ setRulex_format = convert_to_setRulex_format_func(new_set)
 #     A  P  P  L  Y     setRulex
 d = 1; ratio = 0; print('d',d, '---', 'ratio',ratio)
 rules = ruleExtraction(setRulex_format,d,ratio)
-print('rules : : :', rules)
+print('rules  extracted with setRulex  : : : ', rules)
 
 
 
@@ -162,6 +164,9 @@ def eliminateRisk(new_set):
     return set_without_risk_parameter
 new_set = eliminateRisk(new_set)
 print('new_set', new_set )
+
+#   AQUÍ NECESITO CONVERTIR LOS DATOS DEL FORMATO setRULEX AL FORMATO PARA LA FUNCIÓN QUE CALCULA LA PARTICIÓN ÓPTIMA
+
 print('Optimum partition for the new set: ', optimum_partition(new_set))
 #------------------------------------------------------------------------------
 #           Exclude from optimim_partitions or lonly rules                   --
