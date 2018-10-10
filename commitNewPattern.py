@@ -125,9 +125,9 @@ rules = ruleExtraction(setRulex_format,d,ratio)
 print('rules  extracted with setRulex  : : : ', rules)
 
 
-
-
-
+print('---------------       imprime las particiones de las reglas mostradas   ARRIBA :     ---------------------------------')
+print(optimum_partition([[{1, 3}, {1, 2}, 'A'], [{1}, {1, 2, 4}, 'A'], [ {2} ,{2},'B']]))
+print('---------------------')
 
 
 
@@ -168,6 +168,9 @@ print('new_set', new_set )
 #   AQUÍ NECESITO CONVERTIR LOS DATOS DEL FORMATO setRULEX AL FORMATO PARA LA FUNCIÓN QUE CALCULA LA PARTICIÓN ÓPTIMA
 
 print('Optimum partition for the new set: ', optimum_partition(new_set))
+
+
+
 #------------------------------------------------------------------------------
 #           Exclude from optimim_partitions or lonly rules                   --
 #           the indexes_of_intersected_sets, keep the rest of the partitions --
