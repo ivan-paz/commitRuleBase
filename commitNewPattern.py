@@ -126,6 +126,8 @@ print('rules  extracted with setRulex  : : : ', rules)
 
 
 print('---------------       imprime las particiones de las reglas mostradas   ARRIBA :     ---------------------------------')
+
+# APPARENTLY    THERE ARE SOME PROBLEMS WITH T H E     P  A R  T I T I O N BELOW:
 print(optimum_partition([[{1, 3}, {1, 2}, 'A'], [{1}, {1, 2, 4}, 'A'], [ {2} ,{2},'B']]))
 print('---------------------')
 
