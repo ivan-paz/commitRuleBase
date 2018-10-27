@@ -20,6 +20,7 @@ from compare_partitions_volumes_version1 import *
 #--------------------------------------------
 def optimum_partition(Q):
     [d, leafs] = tee(Q)
+    print('this is d',d, 'the leafs ', leafs)
     if leafs != []:
         return max_volume(leafs)
     else:
