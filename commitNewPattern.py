@@ -154,7 +154,7 @@ def square_brackets_format(rule_set):
             for p in range(0,len(rule) - 1):
                 temporal_rule.append( list(rule[p]) )
             temporal_rule.append( rule[-1] )
-            print('temporal rule', temporal_rule)
+            #print('temporal rule', temporal_rule)
             temporal.append(temporal_rule)
         result.append(temporal)
     print('result', result)
