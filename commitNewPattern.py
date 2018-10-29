@@ -14,10 +14,11 @@ from expand_rule import expand_rule
 from convert_to_setRulex_format import convert_to_setRulex_format_func
 from setRulex_algorithm import ruleExtraction
 
-
-
-from rulex_2 import *
+#from rulex_2 import *
 from optimum_partition_for_Q import optimum_partition
+
+from create_connected_components import createConnectedComponents
+
 #---------------------------------------------------
 #     Read json 
 def read(file_name):
@@ -25,16 +26,17 @@ def read(file_name):
         file_content = json.load(json_data)
         return file_content
 #---------------------------------------------------
+
+
 # Read file all_connected_sets
 all_connected_sets = read('all_connected_sets.json')
-#print('Original connected sets:')
-#for i in all_connected_sets: print(i)
 
 #     working again on this repo on Oct 2nd 2018
-#all_connected_sets = [ [[[2,4],2,'A']] ]
-all_connected_sets = [  [ [[1,3] ,[1,2], 'A'], [[1],[1,2,4],'A'] ], [[20, 20, 'w']]  ]
+all_connected_sets = [  [ [[1,3] ,[1,2], 'A'], [[1],[1,2,4],'A'] ], [ [ [3], [10], 'w'] ]   ] 
+print('ALL_CONNECTED_SETS: ', all_connected_sets)
 
-[print('connected set present in ALL_CONNECTED_SETS: ',connected_set) for connected_set in all_connected_sets]
+
+
 #--------------------------------------------------------
 #  When a new pattern comes, as we already have    ------
 #  the optimum partition for each connected set    ------
@@ -66,10 +68,11 @@ def intersected_connected_sets( new_pattern, all_connected_sets, d ):
 #pattern = (5, 11, 'A')  # Pattern for Test 2
 #pattern = (1, 1, 'D')   # Pattern with no intersections
 #pattern = (4,7,'D')
-
 #pattern = (2, 3, 'A')
-pattern = (2,2,'B')
 
+
+pattern = (2,2,'B')
+print('the ATTACKING pattern    --->  ', pattern)
 [ intersected_sets,  indexes_of_intersected_sets ] = intersected_connected_sets( pattern, all_connected_sets, d = 2)
 print('Intersected sets', intersected_sets, 'indexes', indexes_of_intersected_sets)
 
@@ -117,15 +120,17 @@ print( 'TA TAAAN ::::   ', new_set)
 #     T  R  A  N  S  F  O  R  M    T  H  E    D  A  T  A  S  E  T
 print('****    ****') 
 setRulex_format = convert_to_setRulex_format_func(new_set)
-[print(i) for i in setRulex_format]
+#[print(i) for i in setRulex_format]
 #     A  P  P  L  Y     setRulex
 d = 1; ratio = 0; print('d',d, '---', 'ratio',ratio)
 rules = ruleExtraction(setRulex_format,d,ratio)
 print('rules  extracted with setRulex  : : : ', rules)
 
 print('optimum_partition of rules', optimum_partition(rules))
+optimum_partition_of_the_rules = optimum_partition(rules)
 #print('optimum partition',   optimum_partition( [[{1, 3}, {1, 2}, 'A'], [{1}, {1, 2, 4}, 'A'], [ {2} ,{2},'B']]))
 #print(optimum_partition(  [ [2, 2, 'B'], [(1, 3), (1, 2), 'A'], [1, (1, 2, 4), 'A'] ] ) )
+new_connected_components = createConnectedComponents(optimum_partition_of_the_rules)
 
 print('---------------------')
 print(' - - - - all_connected_sets  - - - -', all_connected_sets)
@@ -133,11 +138,35 @@ print('the INDEXES of the connected_sets affected by the new pattern are: ', ind
 
 for index in indexes_of_intersected_sets:
     del all_connected_sets[index]
-print(all_connected_sets)
-all_connected_sets.append(rules)
-print(all_connected_sets)
+[all_connected_sets.append(component) for component in new_connected_components]
+print('this is the result of the algorithm   :',  all_connected_sets)
 
-#  https://github.com/ivan-paz/incrementalAlgorithm/blob/master/createConnectedComponents.py
+#---------------------------------------------------------------
+#     FUNCTION THAT WRITES ALL_CONNECTED_SETS_IN_ [] FORMAT
+#
+#---------------------------------------------------------------
+def square_brackets_format(rule_set):
+    result = []
+    for connected in rule_set:
+        temporal = []
+        for rule in connected:
+            temporal_rule = []
+            for p in range(0,len(rule) - 1):
+                temporal_rule.append( list(rule[p]) )
+            temporal_rule.append( rule[-1] )
+            print('temporal rule', temporal_rule)
+            temporal.append(temporal_rule)
+        result.append(temporal)
+    print('result', result)
+print(square_brackets_format( all_connected_sets) )
+
+
+
+
+
+
+
+
 
 #---------------------------------
 #  Give new_set format for Rulex()
@@ -214,6 +243,3 @@ def eliminateRisk(new_set):
 #print( 'Optimum partitions of the not_intersected sets : ')
 #not_intersected = remaining_partitions(optimum_partitions, optimum_partitions_indexes, lonly_rules, lonly_rules_indexes, indexes_of_intersected_sets)
 #print(not_intersected)
-
-
-
