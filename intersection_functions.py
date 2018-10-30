@@ -28,6 +28,8 @@ def sameClass(rule1, rule2):
 
 #Given a tuple, integer or float returns the maximum and minimum values
 def interval(element):
+    if type(element) == list:
+        print(' element  ', element)
     if type(element)==int:
         minimum = element
         maximum = element

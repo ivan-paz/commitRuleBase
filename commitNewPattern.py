@@ -33,6 +33,10 @@ all_connected_sets = read('all_connected_sets.json')
 
 #     working again on this repo on Oct 2nd 2018
 all_connected_sets = [  [ [[1,3] ,[1,2], 'A'], [[1],[1,2,4],'A'] ], [ [ [3], [10], 'w'] ]   ] 
+#  TEST 2
+all_connected_sets = [ [  [ [1,2,3,8,11],[4,6],'A'] ] ]
+#  TEST 3
+all_connected_sets = [ [ [[6,10],[4,6],'A'], [[8],[3,7],'A'] ] ]
 print('ALL_CONNECTED_SETS: ', all_connected_sets)
 
 
@@ -70,8 +74,12 @@ def intersected_connected_sets( new_pattern, all_connected_sets, d ):
 #pattern = (4,7,'D')
 #pattern = (2, 3, 'A')
 
-
 pattern = (2,2,'B')
+#  TEST 2
+pattern = (5,4,'B')
+#  TEST 3
+pattern = (7,5,'B')
+
 print('the ATTACKING pattern    --->  ', pattern)
 [ intersected_sets,  indexes_of_intersected_sets ] = intersected_connected_sets( pattern, all_connected_sets, d = 2)
 print('Intersected sets', intersected_sets, 'indexes', indexes_of_intersected_sets)
@@ -128,6 +136,7 @@ print('rules  extracted with setRulex  : : : ', rules)
 
 print('optimum_partition of rules', optimum_partition(rules))
 optimum_partition_of_the_rules = optimum_partition(rules)
+print('  THIS IS THE OPTIMUM PARTITION OF THE rules  : ', optimum_partition_of_the_rules)
 #print('optimum partition',   optimum_partition( [[{1, 3}, {1, 2}, 'A'], [{1}, {1, 2, 4}, 'A'], [ {2} ,{2},'B']]))
 #print(optimum_partition(  [ [2, 2, 'B'], [(1, 3), (1, 2), 'A'], [1, (1, 2, 4), 'A'] ] ) )
 new_connected_components = createConnectedComponents(optimum_partition_of_the_rules)

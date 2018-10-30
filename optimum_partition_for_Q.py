@@ -35,6 +35,8 @@ def optimum_partition(Q):
 #print(leafs)
 #print(' Optimum partition', optimum_partition( [[(9, 12), 5, 'C'], [(1, 2, 3, 8, 11), (4, 6), 'A'], [5, (4, 11), 'B']] ) )
 #print('optimim partition',optimum_partition( [ [(9, 12), 5, 'C'], [(1, 2, 3, 8, 11), (4, 6), 'A'], [5, (4, 5), 'B'] ] ) )
+
+
 """
 Examples:
 
