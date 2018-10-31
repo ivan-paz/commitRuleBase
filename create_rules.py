@@ -64,7 +64,7 @@ def partitions(R1, R2):
 
 #R1 = ( (1,2,3,8,11), (4,6), 'A' )
 #R2 = ( 5, 4, 'B')
-#partitions( R1, R2 )
+#print(partitions( R1, R2 ))
 
 
 

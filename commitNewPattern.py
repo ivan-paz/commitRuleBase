@@ -36,7 +36,7 @@ all_connected_sets = [  [ [[1,3] ,[1,2], 'A'], [[1],[1,2,4],'A'] ], [ [ [3], [10
 #  TEST 2
 all_connected_sets = [ [  [ [1,2,3,8,11],[4,6],'A'] ] ]
 #  TEST 3
-all_connected_sets = [ [ [[6,10],[4,6],'A'], [[8],[3,7],'A'] ] ]
+#all_connected_sets = [ [ [[6,10],[4,6],'A'], [[8],[3,7],'A'] ] ]
 print('ALL_CONNECTED_SETS: ', all_connected_sets)
 
 
@@ -78,7 +78,7 @@ pattern = (2,2,'B')
 #  TEST 2
 pattern = (5,4,'B')
 #  TEST 3
-pattern = (7,5,'B')
+#pattern = (7,5,'B')
 
 print('the ATTACKING pattern    --->  ', pattern)
 [ intersected_sets,  indexes_of_intersected_sets ] = intersected_connected_sets( pattern, all_connected_sets, d = 2)
