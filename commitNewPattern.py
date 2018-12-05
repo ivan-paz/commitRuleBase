@@ -134,6 +134,9 @@ d = 1; ratio = 0; print('d',d, '---', 'ratio',ratio)
 rules = ruleExtraction(setRulex_format,d,ratio)
 print('rules  extracted with setRulex  : : : ', rules)
 
+
+#     *********    this is the function I need right now: optimum_partition()
+
 print('optimum_partition of rules', optimum_partition(rules))
 optimum_partition_of_the_rules = optimum_partition(rules)
 print('  THIS IS THE OPTIMUM PARTITION OF THE rules  : ', optimum_partition_of_the_rules)

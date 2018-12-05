@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-from adjacent_matrix import *
-from function_to_create_subsets import *
-from create_rules import *
-from functions_to_calculate_the_volume_of_a_partition import *
+#from adjacent_matrix import *
+#from function_to_create_subsets import *
+#from create_rules import *
+#from functions_to_calculate_the_volume_of_a_partition import *
 from break_edges import *
-from compare_partitions_volumes_version1 import *
+#from compare_partitions_volumes_version1 import *
 
 #----------------------------------------------
 #    This function takes a set of rules and
