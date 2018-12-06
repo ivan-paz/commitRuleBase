@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 #--------------------------------------------------------------------------------------
 #                                                                                ------
 #                                                                                ------
@@ -50,8 +51,6 @@ def interval_intersection(int1, int2):
         return True
     else:
         return False
-#interval_intersection( (1,11), (9,12) )
-#interval_intersection( (2,5), (1,11) )
         
 # NOTE that this function returns the INTERSECTION DISREGARDING THE CLASS 
 #Given two rules Returns true if they intersect each other
@@ -61,28 +60,6 @@ def intersection(rule1, rule2):
         if interval_intersection( interval(rule1[i]), interval(rule2[i]) ) == False:
             intersection = False
     return intersection
-"""
-TESTS
-Example 1:
-( (1, 2, 3, 8, 11), (4, 6), 'A'),
-( (9,12),            5,     'C'),
-(     5,             4,     'B'),
-( (2,5),             7,     'D')
-
-intersection( ( (2,5),             7,     'D'), ( (1, 2, 3, 8, 11), (4, 6), 'A') )
-intersection ( (5, 4,'B'), ( (1, 2, 3, 8, 11), (4, 6), 'A'))
-intersection( ( (1, 2, 3, 8, 11), (4, 6), 'A'), ( (9,12),            5,     'C'), )
-intersection((     5,             4,     'B'),( (2,5),             7,     'D'))
-intersection(( (9,12),            5,     'C'),(     5,             4,     'B'),)
-
-Example2:
-intersection(  ( (9, 12), 5, 'C'),( (10, 10.5 ), 4, 'B') )
-intersection(  ( (9, 12), 5, 'C'),( (10, 10.5 ), 5, 'B') )
-
-Example3:
-intersection(((1,4),3,'A'), (2,(1,4),'A'))
-intersection(((1, 4), 3, 'A'), (4, (3, 6), 'A'))
-"""
 
 
 
