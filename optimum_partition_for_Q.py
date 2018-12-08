@@ -4,7 +4,7 @@
 #from create_rules import *
 #from functions_to_calculate_the_volume_of_a_partition import *
 from break_edges import *
-#from compare_partitions_volumes_version1 import *
+from compare_partitions_volumes_version1 import *
 
 #----------------------------------------------
 #    This function takes a set of rules and
@@ -19,6 +19,7 @@ from break_edges import *
 #    in which all the contradictions have been solved.
 #--------------------------------------------
 def optimum_partition(Q):
+    print(Q)
     [d, leafs] = tee(Q)
     print('this is d',d, 'the leafs ', leafs)
     if leafs != []:
@@ -28,6 +29,16 @@ def optimum_partition(Q):
             return d['1,1']
         else:
             return False # There is no partition to do. Probably the connected set has the same class.
+
+#       Ejemplos para ver si funciona
+Q = [(5, 4, 'B'), ((1, 2, 3, 8, 11), (4, 6), 'A'), ((9, 12), 5, 'C')]
+Q = [(5, 5, 'B'), ((1, 2, 3, 8, 11), (4, 6), 'A'), ((9, 12), 5, 'C')]
+Q = [(2, 5, 'B'), ((1, 2, 3, 8, 11), (4, 6), 'A'), ((9, 12), 5, 'C')]
+
+Q = [(5, 7, 'B'), ((1, 2, 3, 8, 11), (4, 6), 'A'), ((9, 12), 5, 'C')]
+
+Q = [ (3,7,'B'), ((1, 4), (6, 8), 'A') ]
+print(optimum_partition(Q))
 
 #[d, leafs] = tee([[(9, 12), 5, 'C'], [(1, 2, 3, 8, 11), (4, 6), 'A'], [5, (4, 11), 'B']] )
 #[ d, leafs ] = tee( [[(9, 12), 5, 'C'], [(1, 2, 3, 8, 11), (4, 6), 'A'], [5, (4, 5), 'B']] )

@@ -1,21 +1,24 @@
 # -*- coding: utf-8 -*-
-"""
-Function that recibes a couple of lists
-labeled with different class. For example :
+#
+#
+#      Function that recibes a couple of lists
+#      labeled with different class. For example :
+#
+#   lists          class
+#   (1,2,3,8,11) -> 0
+#   (5)          -> 1
 
-lists          class
-(1,2,3,8,11) -> 0
-(5)          -> 1
+#     and returns tuples separated by the classes
 
-and returns tuples separated by the classes
+#     in the example :
 
-in the example :
+#     (1,2,3) -> 0
+#     (5)     -> 1
+#     (8,11)  -> 0
+#
+#
+#
 
-(1,2,3) -> 0
-(5)     -> 1
-(8,11)  -> 0
-
-"""
 #  create list with format [element, class]
 def create_labels(_list,_class):
     labels = list()
@@ -77,7 +80,8 @@ def create_subsets(set1_class1,set2_class2):
     ordered_list = create_sets(set1_class1,set2_class2)
     list_of_subsets = subsets(ordered_list)
     return list_of_subsets
-#      create_subsets( (1,2,3,8,11), (5))
+
+#print(      create_subsets( (1,2,3,8,11), (5))   )
 
 
 

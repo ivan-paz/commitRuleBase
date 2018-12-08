@@ -16,44 +16,80 @@ def exclude_current_edge(edge,edges):
     temp = copy.deepcopy(edges)
     temp.remove(edge)
     return temp
-"""
-Q = [
-        ( (1,2,3,8,11), (4,6), 'A'),
-        (       (9,12),     5, 'C'),
-        (            5,     4,'B')    
-    ]
-""" 
-    
+
+#Q = [
+#        ( (1,2,3,8,11), (4,6), 'A'),
+#        (       (9,12),     5, 'C'),
+#        (            5,     4,'B')    
+#    ]
+
+#  This function receives a set "Q" with connected rules
+#  and solve the contradictions
+#
+
+global ALL_PARTITIONS
+ALL_PARTITIONS = []
+
 def cut(Q):
-   # print('Connected_set to break tree-like :', Q)
+    print('Connected_set to break tree-like :', Q)
     matrix = adjacent_matrix(Q)
-    #print('Matrix', matrix)
+#    print('Matrix', matrix)
     edges = generate_edges(matrix)
     edges = simplify_edges(edges)
-   # print('Edges', edges)
+    print('Edges', edges)
 
     for i in range(len(edges)): edges[i] = sorted(edges[i])
     edges = sorted(edges, key = operator.itemgetter(1))
   
     P = [ ]
     for edge in edges:
-        #print('breaking', edge)
+        print('breaking', edge)
         temp_P = [ ]
-        #print( Q[ int(edge[0]) ], Q[ int(edge[1]) ] )
+        print('partitions of rules: ', Q[ int(edge[0]) ], Q[ int(edge[1]) ] )
+        # save all the partitions take their combinations and select the combination with
+        #maximum volume
+        ALL_PARTITIONS.append( partitions( Q[ int(edge[0]) ], Q[ int(edge[1]) ]  ) )
         temp_P = temp_P + partitions( Q[ int(edge[0]) ], Q[ int(edge[1]) ]  )
-        #print(temp_P)
+        print(temp_P)
         clone_Q = copy.deepcopy(Q)
         clone_Q.remove(Q[int(edge[0])])
         clone_Q.remove(Q[int(edge[1])])
-        #print('clone_Q', clone_Q)
+        print('clone_Q', clone_Q)
         
         for p in temp_P:
             for x in clone_Q:
                 p.append(x)
-            #print('p: ',p)
+            print('p: ',p)
             P.append(p) #########  Eliminate levels Rompe la herarquia
     return P
-#   P = cut(Q)
+Q = [(3, 7, 'B'), ((1, 4), (6, 8), 'A')]
+Q = [(3, 7, 'B'), ((1, 4), (6, 8), 'A'), ((2,5),(5,9),'A')]
+[ print(i) for i in cut(Q) ]
+print('ALL PARTITIONS ::',ALL_PARTITIONS)
+
+import itertools
+
+partitions =  [
+        [
+        [[(6,), {4, 6}, 'A'], [(8,), 5, 'B'], [(10,), {4, 6}, 'A']],
+        [[{10, 6}, (4,), 'A'], [8, (5,), 'B'], [{10, 6}, (6,), 'A']]
+        ],
+        [[[{8}, (3,), 'A'], [8, (5,), 'B'], [{8}, (7,), 'A']]]
+        ]
+
+def create_combinations_from_rule_partitions(partitions):
+    combinations = list(itertools.product(*partitions))
+    #[print(c) for c in combinations]
+    return combinations
+print(create_combinations_from_rule_partitions(ALL_PARTITIONS))
+
+
+
+
+
+
+
+
 
 """
 Q = [
@@ -81,7 +117,8 @@ def tee(q):
         j = 0
         leafs = False
         if len(shape(q)) == 1:
-            #print('Case1 ' , q)
+            print('Case1 ' , q)
+
             temp1 = []
             
             i = i + 1
@@ -100,13 +137,13 @@ def tee(q):
                     leafs = True
                 else:
                     new_leaf = element
-                    #print('LEAF: ', element)
+                    print('LEAF: ', element)
                     tree_leafs.append(new_leaf)
                     
             temp = temp1
             q = temp ###
         else:
-            #print('Case2', q)
+            print('Case2', q)
             temp = cut(q)
             leafs = True
             q = temp
@@ -121,8 +158,8 @@ def tee(q):
 #Q = [((6, 9), 11, 'A'), (8, (10, 14), 'A')]
 #Q = [(12, (10, 13), 'B'), ((11, 13), (11, 13), 'D')]
 #d  = tee(Q)
+#Q = [(3, 7, 'B'), ((1, 4), (6, 8), 'A')]
 #[d, leafs] = tee(Q)
-#[d,leafs] = tee(Q)
 #print(d)
 #print(leafs)
 #for leaf in leafs:
