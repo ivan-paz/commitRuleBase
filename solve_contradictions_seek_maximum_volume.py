@@ -71,13 +71,13 @@ print('ALL PARTITIONS ::')
 
 import itertools
 
-partitions =  [
-        [
-        [[(6,), {4, 6}, 'A'], [(8,), 5, 'B'], [(10,), {4, 6}, 'A']],
-        [[{10, 6}, (4,), 'A'], [8, (5,), 'B'], [{10, 6}, (6,), 'A']]
-        ],
-        [[[{8}, (3,), 'A'], [8, (5,), 'B'], [{8}, (7,), 'A']]]
-        ]
+#partitions =  [
+#        [
+#        [[(6,), {4, 6}, 'A'], [(8,), 5, 'B'], [(10,), {4, 6}, 'A']],
+#        [[{10, 6}, (4,), 'A'], [8, (5,), 'B'], [{10, 6}, (6,), 'A']]
+#        ],
+#        [[[{8}, (3,), 'A'], [8, (5,), 'B'], [{8}, (7,), 'A']]]
+#        ]
 
 def create_combinations_from_rule_partitions(partitions):
     combinations = list(itertools.product(*partitions))
@@ -100,15 +100,40 @@ print('------------------------------------')
 print(combinaciones_de_las_particiones[index_of_the_combination_with_maximum_volume])
 
 
-# ************  aquí voy
-def solve_contradictions_seek_maximum_volume(rule_set):
-    ALL_PARTITIONS = cut(rule_set)
-    #combinations_of_the_partitions = create_combinations_from_rule_partitions(ALL_PARTITIONS)
-    #index_of_the_combination_with_maximum_volume = find_combination_with_maximum_volume( partition_volumes( combinations_of_the_partitions  ))
-    #print( combinations_of_the_partitions[index_of_the_combination_with_maximum_volume])
-    #return combinations_of_the_partitions[index_of_the_combination_with_maximum_volume]
+def all_partitions(rule_set):
+    all_partitions = []
+    #print('Connected_set to break tree-like :', rule_set)
+    matrix = adjacent_matrix(rule_set)
+    #print('Matrix', matrix)
+    edges = generate_edges(matrix)
+    edges = simplify_edges(edges)
+    #print('Edges', edges)
+    for i in range(len(edges)): edges[i] = sorted(edges[i])
+    edges = sorted(edges, key = operator.itemgetter(1))
+  
+    P = [ ]
+    for edge in edges:
+        #print('breaking', edge)
+        temp_P = [ ]
+        #print('partitions of rules: ', rule_set[ int(edge[0]) ], rule_set[ int(edge[1]) ] )
+        # save all the partitions
+        all_partitions.append( partitions( rule_set[ int(edge[0]) ], rule_set[ int(edge[1]) ]))
+    return all_partitions
 
-solve_contradictions_seek_maximum_volume(Q)
+#reglas = [(3, 7, 'B'), ((1, 4), (6, 8), 'A'), ((2,5),(5,9),'A')]
+#print(all_partitions(reglas))
+
+
+
+def solve_contradictions_seek_maximum_volume(rule_set):
+    all_the_partitions = all_partitions(rule_set)
+    combinations_of_the_partitions = create_combinations_from_rule_partitions(all_the_partitions)
+    index_of_the_combination_with_maximum_volume = find_combination_with_maximum_volume( partition_volumes( combinations_of_the_partitions  ))
+    print( 'comb with max vol',combinations_of_the_partitions[index_of_the_combination_with_maximum_volume])
+    return combinations_of_the_partitions[index_of_the_combination_with_maximum_volume]
+
+cores_to_break = [(3, 7, 'B'), ((1, 4), (6, 8), 'A'), ((2,5),(5,9),'A')]
+solve_contradictions_seek_maximum_volume(cores_to_break)
 
 
 
